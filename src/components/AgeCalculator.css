@@ -3,8 +3,8 @@
 .container{
     background-color: var(--white);
     width: 85vw;
-    height: 70vh;
-    margin: 10vh  auto;
+    height: 75vh;
+    margin: 8vh  auto;
     border-radius: 35px 35px 120px 20px;
     display: flex;
     flex-direction: column;
@@ -12,16 +12,17 @@
 }
 .inputs{
     display: flex;
-    align-items: center;
+    align-items:baseline;
     justify-content: center;
     margin-top: 40px;
     width: 90%;
+  
     
 }
 .container label{
     display: flex;
     flex-direction: column;
-    width: 30%;
+    width: 29%;
     margin: 1%;
 }
 
@@ -92,7 +93,7 @@
 
 .container_result div{
     color: var(--OffBlack);
-    font-size: 46px;
+    font-size: 300%;
     width: 100%;
     margin-left:40px;
 
