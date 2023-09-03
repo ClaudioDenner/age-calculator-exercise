@@ -1,3 +1,5 @@
+
+
 .container{
     background-color: var(--white);
     width: 85vw;
@@ -60,16 +62,20 @@
 
 }
 
-.icon{
+.button{
     width: 60px;
     height: 60px;
     transform: translateY(-50%);
     background-color: var(--primaryPurple);
     border-radius: 50%;
-    color: #fff;
+    
 
 }
 
+.button:hover {
+    background-color: var(--smokeyGrey);
+    
+}
 
 .container_result{
     display: flex;
