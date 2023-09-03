@@ -30,7 +30,7 @@
     color: var(--smokeyGrey);
 }
 
-.container label input{
+.input{
     width: 100%;
     height: 60px;
     border-radius: 10px;
@@ -40,6 +40,10 @@
     padding: 0px 8px 0px 8px;
     
     
+}
+
+.input-error{
+    border: 2px solid var(--primaryLightRed);
 }
 
 .errorMessage{
