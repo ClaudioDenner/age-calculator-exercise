@@ -14,7 +14,19 @@ function AgeCalculator() {
         <div className='inputs'>
         <label>
         <span className='titleInput'>DAY</span>
-        <input  type='number ' className='input' placeholder='DDDD' min="1" max="31"/>
+        <input  type='number ' className='input' placeholder='DD' min="1" max="31"/>
+        <span className='errorMessage'>Must be a valid day</span>
+        </label>
+
+        <label>
+        <span className='titleInput'>MONTH</span>
+        <input  type='number ' className='input' placeholder='MM' min="1" max="31"/>
+        <span className='errorMessage'>Must be a valid day</span>
+        </label>
+
+        <label>
+        <span className='titleInput'>YEAR</span>
+        <input  type='number ' className='input' placeholder='YYYY' min="1" max="31"/>
         <span className='errorMessage'>Must be a valid day</span>
         </label>
 
@@ -23,6 +35,23 @@ function AgeCalculator() {
         <div className='division'>
           <img src={iconArrow} alt='icon Arrow ' className='icon'/>
         </div>
+
+        <section className='container_result'>
+          <div>
+            <span>00</span>
+            years
+          </div>
+
+          <div>
+            <span>00</span>
+            months
+          </div>
+
+          <div>
+            <span>00</span>
+            days
+          </div>
+        </section>
 
         
     </main>
