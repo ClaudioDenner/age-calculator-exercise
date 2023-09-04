@@ -4,7 +4,7 @@ import iconArrow from '/assets/images/icon-arrow.svg'
 
 function AgeCalculator() {
 
-    //const today = new Date();
+
 
     const [inputDay, setInputDay] = useState('')
     const [statusInputDay, setStatusInputDay] = useState(false)
@@ -14,6 +14,10 @@ function AgeCalculator() {
 
     const [inputYear, setInputYear] = useState('')
     const [statusInputYear, setStatusInputYear] = useState(false)
+
+    const [quantDays, setQuantDays] = useState('--')
+    const [quantMoths, setQuantMonths] = useState('--')
+    const [quantYears, setQuantYears] = useState('--')
 
 
     
@@ -79,7 +83,47 @@ function AgeCalculator() {
 
     const submit = ()=>{
       //
-     //    const dateInput = new Date(1998, inputMonth, inputDay)
+         const dateInput = new Date(`${inputYear}/${inputMonth}/${inputDay}`)
+         const aniversaryDay = parseInt(inputDay)
+         const aniversaryMonth = parseInt(inputMonth)
+         const curretDate = new Date()
+         const currentYear = curretDate.getFullYear()
+         const currentMonth = curretDate.getMonth()+1 
+         const currentDay = curretDate.getDate()
+
+
+        
+
+         const divisorForYear = (1000 * 60 * 60 * 24 * 365)
+         const divisorForDay = (1000 * 60 * 60 * 24)
+
+          //year
+         const yearAbsolute = Math.floor(Math.abs((dateInput.getTime() - curretDate.getTime()) / divisorForYear))
+
+
+
+         //calcule diff months
+         const lastAniversaryDate = new Date(`${currentYear}/${currentMonth-1}/${aniversaryDay}`)
+         //const lastMonthComplete = lastAniversaryDate.getMonth()
+
+         const monthAbsolute = currentDay < aniversaryDay ? currentMonth - aniversaryMonth - 1 : currentMonth - aniversaryMonth
+         console.log(monthAbsolute)
+        
+        //calc diff days
+        const diffBetweenCurrentDateAndLastAniversaryDate = curretDate.getTime() - lastAniversaryDate.getTime()
+        const daysAbsolute = Math.floor(Math.abs(diffBetweenCurrentDateAndLastAniversaryDate / divisorForDay))
+         
+
+         console.log(daysAbsolute, monthAbsolute, yearAbsolute)
+         console.log(lastAniversaryDate)
+
+
+
+
+
+
+         
+         
     }
 
   return (
@@ -111,17 +155,17 @@ function AgeCalculator() {
 
         <section className='container_result'>
           <div>
-            <span>00</span>
+            <span>{quantYears}</span>
             years
           </div>
 
           <div>
-            <span>00</span>
+            <span>{quantMoths}</span>
             months
           </div>
 
           <div>
-            <span>00</span>
+            <span>{quantDays}</span>
             days
           </div>
         </section>
