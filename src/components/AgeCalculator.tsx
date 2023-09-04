@@ -1,6 +1,6 @@
 import './AgeCalculator.css'
 import { useState } from 'react'
-import iconArrow from '/assets/images/icon-arrow.svg'
+//import iconArrow from '/assets/images/icon-arrow.svg'
 
 function AgeCalculator() {
 
@@ -145,7 +145,7 @@ function AgeCalculator() {
         </div>
 
         <div className='division'>
-          <img src={iconArrow} alt='button submit' className='button' onClick={submit}/>
+          <button className='button' onClick={submit}>submit</button>
         </div>
 
         <section className='container_result'>
