@@ -15,9 +15,9 @@ function AgeCalculator() {
     const [inputYear, setInputYear] = useState('')
     const [statusInputYear, setStatusInputYear] = useState(false)
 
-    const [quantDays, setQuantDays] = useState('--')
-    const [quantMoths, setQuantMonths] = useState('--')
-    const [quantYears, setQuantYears] = useState('--')
+    const [quantDays, setQuantDays] = useState(0)
+    const [quantMoths, setQuantMonths] = useState(0)
+    const [quantYears, setQuantYears] = useState(0)
 
 
     
@@ -89,7 +89,7 @@ function AgeCalculator() {
          const curretDate = new Date()
          const currentYear = curretDate.getFullYear()
          const currentMonth = curretDate.getMonth()+1 
-         const currentDay = curretDate.getDate()
+         //const currentDay = curretDate.getDate()
 
 
         
@@ -99,23 +99,18 @@ function AgeCalculator() {
 
           //year
          const yearAbsolute = Math.floor(Math.abs((dateInput.getTime() - curretDate.getTime()) / divisorForYear))
+         setQuantYears(yearAbsolute)
 
-
-
-         //calcule diff months
-         const lastAniversaryDate = new Date(`${currentYear}/${currentMonth-1}/${aniversaryDay}`)
-         //const lastMonthComplete = lastAniversaryDate.getMonth()
-
-         const monthAbsolute = currentDay < aniversaryDay ? currentMonth - aniversaryMonth - 1 : currentMonth - aniversaryMonth
-         console.log(monthAbsolute)
-        
-        //calc diff days
-        const diffBetweenCurrentDateAndLastAniversaryDate = curretDate.getTime() - lastAniversaryDate.getTime()
-        const daysAbsolute = Math.floor(Math.abs(diffBetweenCurrentDateAndLastAniversaryDate / divisorForDay))
+         const lastAniversary = new Date(`${currentMonth > aniversaryMonth ? currentYear : currentYear -1}/${aniversaryMonth}/${aniversaryDay}`)
          
+         //month
+         const diffBetweenCurrentMonthAndMonthLastAniversary = Math.floor(((curretDate.getTime() -  lastAniversary.getTime()) / divisorForDay) * 12 / 365)
+         setQuantMonths(diffBetweenCurrentMonthAndMonthLastAniversary)
 
-         console.log(daysAbsolute, monthAbsolute, yearAbsolute)
-         console.log(lastAniversaryDate)
+         //day
+         const lastMonthComplete = new Date(`${currentMonth === 1 ? currentYear -1 : currentYear}/${ currentMonth ===1 ? 12 : currentMonth-1}/${aniversaryDay}`).getTime()
+         const diffInDaysBetweenCurrentDateAndlastMonthComplete = Math.floor(( curretDate.getTime()- lastMonthComplete) / divisorForDay )
+         setQuantDays(diffInDaysBetweenCurrentDateAndlastMonthComplete)
 
 
 
