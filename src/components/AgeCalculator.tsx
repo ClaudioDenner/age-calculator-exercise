@@ -15,9 +15,9 @@ function AgeCalculator() {
     const [inputYear, setInputYear] = useState('')
     const [statusInputYear, setStatusInputYear] = useState(false)
 
-    const [quantDays, setQuantDays] = useState(0)
-    const [quantMoths, setQuantMonths] = useState(0)
-    const [quantYears, setQuantYears] = useState(0)
+    const [quantDays, setQuantDays] = useState<number|string>('--')
+    const [quantMoths, setQuantMonths] = useState<number|string>('--')
+    const [quantYears, setQuantYears] = useState<number|string>('--')
 
 
     
@@ -66,7 +66,7 @@ function AgeCalculator() {
                  
                 const inputInt = parseInt(input)
                 const verify = isNaN(inputInt)
-                if(!verify  && inputInt <= 2999){
+                if(!verify  && inputInt <= new Date().getFullYear()){
                   //
                   setInputYear(input)
                   setStatusInputYear(false)
@@ -82,6 +82,35 @@ function AgeCalculator() {
     }
 
     const submit = ()=>{
+      if(statusInputDay || statusInputMonth || statusInputYear){
+        //
+        alert('Insert a date valid in the past')
+      }
+      else{
+        //
+        if(new Date(`${inputYear}/${inputMonth}/${inputDay}`) > new Date()){
+          //
+          setStatusInputDay(true)
+          setStatusInputMonth(true)
+          setStatusInputYear(true)
+
+          setQuantDays('--')
+          setQuantMonths('--')
+          setQuantYears('--')
+
+          alert('Insert a date in the past')
+
+
+
+        }
+        else {
+          calcTime()
+        }
+        
+      }
+    }
+
+    const calcTime = ()=>{
       //
          const dateInput = new Date(`${inputYear}/${inputMonth}/${inputDay}`)
          const birthdayDay = parseInt(inputDay)
@@ -147,7 +176,7 @@ function AgeCalculator() {
         <label>
         <span className='titleInput'>YEAR</span>
         <input  type='text' className={statusInputYear ? 'input input-error': 'input' } placeholder='YYYY' value={inputYear}   onChange={(e)=> verification(e.target.value, 'rule of year') }/>
-        <span className={statusInputYear ? 'errorMessage errorActive': 'errorMessage'}>Must be a valid year</span>
+        <span className={statusInputYear ? 'errorMessage errorActive': 'errorMessage'}>Must be a valid year in the past</span>
         </label>
 
         </div>
