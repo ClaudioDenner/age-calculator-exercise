@@ -84,12 +84,12 @@ function AgeCalculator() {
     const submit = ()=>{
       //
          const dateInput = new Date(`${inputYear}/${inputMonth}/${inputDay}`)
-         const aniversaryDay = parseInt(inputDay)
-         const aniversaryMonth = parseInt(inputMonth)
+         const birthdayDay = parseInt(inputDay)
+         const birthdayMonth = parseInt(inputMonth)
          const curretDate = new Date()
          const currentYear = curretDate.getFullYear()
          const currentMonth = curretDate.getMonth()+1 
-         //const currentDay = curretDate.getDate()
+         const currentDay = curretDate.getDate()
 
 
         
@@ -101,15 +101,23 @@ function AgeCalculator() {
          const yearAbsolute = Math.floor(Math.abs((dateInput.getTime() - curretDate.getTime()) / divisorForYear))
          setQuantYears(yearAbsolute)
 
-         const lastAniversary = new Date(`${currentMonth > aniversaryMonth ? currentYear : currentYear -1}/${aniversaryMonth}/${aniversaryDay}`)
+         const lastbirthday = new Date(`${currentMonth > birthdayMonth ? currentYear : currentYear -1}/${birthdayMonth}/${birthdayDay}`)
          
          //month
-         const diffBetweenCurrentMonthAndMonthLastAniversary = Math.floor(((curretDate.getTime() -  lastAniversary.getTime()) / divisorForDay) * 12 / 365)
-         setQuantMonths(diffBetweenCurrentMonthAndMonthLastAniversary)
+         const diffBetweenCurrentMonthAndMonthLastbirthday = Math.floor(((curretDate.getTime() -  lastbirthday.getTime()) / divisorForDay) * 12 / 365) === 12 ? 0 : Math.floor(((curretDate.getTime() -  lastbirthday.getTime()) / divisorForDay) * 12 / 365)
+         setQuantMonths(diffBetweenCurrentMonthAndMonthLastbirthday)
 
          //day
-         const lastMonthComplete = new Date(`${currentMonth === 1 ? currentYear -1 : currentYear}/${ currentMonth ===1 ? 12 : currentMonth-1}/${aniversaryDay}`).getTime()
-         const diffInDaysBetweenCurrentDateAndlastMonthComplete = Math.floor(( curretDate.getTime()- lastMonthComplete) / divisorForDay )
+         const lastMonthComplete = new Date(`${currentMonth === 1 ? currentYear -1 : currentYear}/${ currentMonth ===1 ? 12 : currentMonth-1}/${birthdayDay}`).getTime()
+         const dayProx = new Date(`${currentYear}/${birthdayMonth}/${birthdayDay}`).getTime()
+         //const monthBirthday = new Date(`${currentYear}/${birthdayMonth}/${birthdayDay}`).getTime()
+         //const diffInDaysBetweenCurrentDateAndlastMonthComplete = Math.floor(( curretDate.getTime()- lastMonthComplete) / divisorForDay ) > 31 ? 0 : Math.floor(( curretDate.getTime()- lastMonthComplete) / divisorForDay )
+         
+         const diffInDaysBetweenCurrentDateAndlastMonthComplete = currentDay === birthdayDay && currentMonth === birthdayMonth ? 0 : Math.floor(( curretDate.getTime() - lastMonthComplete) / divisorForDay ) > 31 ? (Math.floor(( curretDate.getTime()- dayProx) / divisorForDay )) : Math.floor(( curretDate.getTime()- lastMonthComplete) / divisorForDay )
+         
+        
+
+
          setQuantDays(diffInDaysBetweenCurrentDateAndlastMonthComplete)
 
 
