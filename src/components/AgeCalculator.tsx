@@ -84,7 +84,15 @@ function AgeCalculator() {
     const submit = ()=>{
       if(statusInputDay || statusInputMonth || statusInputYear){
         //
+          setStatusInputDay(true)
+          setStatusInputMonth(true)
+          setStatusInputYear(true)
+
+          setQuantDays('--')
+          setQuantMonths('--')
+          setQuantYears('--')
         alert('Insert a date valid in the past')
+
       }
       else{
         //
@@ -104,7 +112,19 @@ function AgeCalculator() {
 
         }
         else {
-          calcTime()
+          if(inputDay === '' || inputMonth === '' || inputYear === ''){
+            setStatusInputDay(true)
+            setStatusInputMonth(true)
+            setStatusInputYear(true)
+
+            setQuantDays('--')
+            setQuantMonths('--')
+            setQuantYears('--')
+
+            alert('Insert a date in the past')
+          } else {
+            calcTime()
+          }
         }
         
       }
