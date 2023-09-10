@@ -32,10 +32,11 @@ function AgeCalculator() {
                
               const inputInt = parseInt(input)
               const verify = isNaN(inputInt)
-              if(!verify  && inputInt <= 31){
+              if(!verify  && inputInt <= 31 && inputInt > 0){
                 //
                 setInputDay(input)
                 setStatusInputDay(false)
+                
               } else {
                 //
                 setInputDay('')
@@ -91,7 +92,8 @@ function AgeCalculator() {
           setQuantDays('--')
           setQuantMonths('--')
           setQuantYears('--')
-        alert('Insert a date valid in the past')
+        alert('Insert a date valid in the past 0')
+
 
       }
       else{
@@ -106,7 +108,7 @@ function AgeCalculator() {
           setQuantMonths('--')
           setQuantYears('--')
 
-          alert('Insert a date in the past')
+          alert('Insert a date in the past 1')
 
 
 
@@ -121,7 +123,7 @@ function AgeCalculator() {
             setQuantMonths('--')
             setQuantYears('--')
 
-            alert('Insert a date in the past')
+            alert('Insert a date in the past 2')
           } else {
             calcTime()
           }
@@ -135,47 +137,100 @@ function AgeCalculator() {
          const dateInput = new Date(`${inputYear}/${inputMonth}/${inputDay}`)
          const birthdayDay = parseInt(inputDay)
          const birthdayMonth = parseInt(inputMonth)
-         const curretDate = new Date()
-         const currentYear = curretDate.getFullYear()
-         const currentMonth = curretDate.getMonth()+1 
-         const currentDay = curretDate.getDate()
-
-
+         const birthdayYear = parseInt(inputYear)
+         const currentDate = new Date()
+         const currentYear = currentDate.getFullYear()
+         const currentMonth = currentDate.getMonth()+1
+         const currentDay = currentDate.getDate()
         
+         const lastBirthday = new Date(`${currentYear}/${birthdayMonth}/${birthdayDay}`)
 
-         const divisorForYear = (1000 * 60 * 60 * 24 * 365)
-         const divisorForDay = (1000 * 60 * 60 * 24)
+         const conversionFactorForYear = (1000 * 60 * 60 * 24 * 365)
+         const conversionFactorForDay = (1000 * 60 * 60 * 24)
 
-          //year
-         const yearAbsolute = Math.floor(Math.abs((dateInput.getTime() - curretDate.getTime()) / divisorForYear))
-         setQuantYears(yearAbsolute)
+         const diffYears = currentYear - birthdayYear
+         const valueForSome = diffYears * conversionFactorForYear
+         const dataref = new Date(dateInput.getTime()+valueForSome)
+         const quantYearsBisext = (lastBirthday.getTime() - dataref.getTime()) / conversionFactorForDay
 
-         const lastbirthday = new Date(`${currentMonth > birthdayMonth ? currentYear : currentYear -1}/${birthdayMonth}/${birthdayDay}`)
-         
-         //month
-         const diffBetweenCurrentMonthAndMonthLastbirthday = Math.floor(((curretDate.getTime() -  lastbirthday.getTime()) / divisorForDay) * 12 / 365) === 12 ? 0 : Math.floor(((curretDate.getTime() -  lastbirthday.getTime()) / divisorForDay) * 12 / 365)
-         setQuantMonths(diffBetweenCurrentMonthAndMonthLastbirthday)
+         //year
+          const diff = currentDate.getTime() - dateInput.getTime()
+          const totalDays = (diff/ conversionFactorForDay ) 
+          const mediaDaysForYear = totalDays / diffYears
+          const years = Math.floor((totalDays) / (365))
 
-         //day
-         const lastMonthComplete = new Date(`${currentMonth === 1 ? currentYear -1 : currentYear}/${ currentMonth ===1 ? 12 : currentMonth-1}/${birthdayDay}`).getTime()
-         const dayProx = new Date(`${currentYear}/${birthdayMonth}/${birthdayDay}`).getTime()
-         //const monthBirthday = new Date(`${currentYear}/${birthdayMonth}/${birthdayDay}`).getTime()
-         //const diffInDaysBetweenCurrentDateAndlastMonthComplete = Math.floor(( curretDate.getTime()- lastMonthComplete) / divisorForDay ) > 31 ? 0 : Math.floor(( curretDate.getTime()- lastMonthComplete) / divisorForDay )
-         
-         const diffInDaysBetweenCurrentDateAndlastMonthComplete = currentDay === birthdayDay && currentMonth === birthdayMonth ? 0 : Math.floor(( curretDate.getTime() - lastMonthComplete) / divisorForDay ) > 31 ? (Math.floor(( curretDate.getTime()- dayProx) / divisorForDay )) : Math.floor(( curretDate.getTime()- lastMonthComplete) / divisorForDay )
-         
-        
+          if(currentYear == birthdayYear){
+            setQuantYears(0)
+            
+          } else {
+            //
+            if(currentMonth >= birthdayMonth && currentDay >= birthdayDay){
+              setQuantYears(currentYear-birthdayYear)
+           
 
+            }
+            else if(currentMonth > birthdayMonth){
+              setQuantYears(currentYear-birthdayYear)
+             
 
-         setQuantDays(diffInDaysBetweenCurrentDateAndlastMonthComplete)
+            } else {
+              setQuantYears(currentYear-birthdayYear-1)
+            
 
+            }
+          }
 
+          //month
 
+          if(currentYear == birthdayYear){
+            //
+              if(currentMonth == birthdayMonth){
+                  setQuantMonths(0)
+              } else if(currentMonth > birthdayMonth){
+                //
+                if(currentDay >= birthdayDay){
+                  setQuantMonths(currentMonth - birthdayMonth)
+                }
+                else {
+                  //
+                  setQuantMonths(currentMonth - birthdayMonth -1)
+                }
+                
+              }
+          } else {
+            //
+            if(currentMonth  >= birthdayMonth){
+              // currentMonth  >=  birthdayMonth
+              if(currentDay >= birthdayDay){
+                setQuantMonths(currentMonth - birthdayMonth)
+                
+              } else {
+                //
+                if(currentMonth == birthdayMonth){
+                  setQuantMonths(11)
+                  
+                } else {
+                  setQuantMonths(currentMonth - birthdayMonth -1)
+                  
+                }
 
+              }
+            } else { // currentMonth  <  birthdayMonth
+                //
+                if(currentDay >= birthdayDay){
+                  // 
+                  setQuantMonths(12 - birthdayMonth + currentMonth)
+                  
 
+                } else {
+                  setQuantMonths(12 - birthdayMonth + currentMonth -1)
+                  
 
-         
-         
+                }
+            }
+          }
+          
+          
     }
 
   return (
