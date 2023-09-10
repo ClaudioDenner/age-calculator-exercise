@@ -229,6 +229,38 @@ function AgeCalculator() {
                 }
             }
           }
+
+          //DAY
+
+
+          
+            if(currentDay >= birthdayDay){ 
+
+                //
+                const lastMonthComplete = new Date(`${currentYear}/${currentMonth}/${birthdayDay}`).getTime() 
+                const diffDays = Math.floor((currentDate.getTime() - lastMonthComplete ) / conversionFactorForDay)
+                setQuantDays(diffDays)
+                alert(1)
+
+              
+            } else {
+              //
+              if(currentMonth == 1){
+
+                const lastMonthComplete = new Date(`${currentYear-1}/12/${birthdayDay}`).getTime() 
+                const diffDays = Math.floor((currentDate.getTime() - lastMonthComplete ) / conversionFactorForDay)
+                setQuantDays(diffDays)
+                alert(2)
+
+              } else {
+                //
+                const lastMonthComplete = new Date(`${currentYear}/${currentMonth-1}/${birthdayDay}`).getTime() 
+                const diffDays = Math.floor((currentDate.getTime() - lastMonthComplete ) / conversionFactorForDay)
+                setQuantDays(diffDays)
+                alert(3)
+              }
+            }
+          
           
           
     }
