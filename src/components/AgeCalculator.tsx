@@ -134,7 +134,6 @@ function AgeCalculator() {
 
     const calcTime = ()=>{
       //
-         const dateInput = new Date(`${inputYear}/${inputMonth}/${inputDay}`)
          const birthdayDay = parseInt(inputDay)
          const birthdayMonth = parseInt(inputMonth)
          const birthdayYear = parseInt(inputYear)
@@ -142,22 +141,12 @@ function AgeCalculator() {
          const currentYear = currentDate.getFullYear()
          const currentMonth = currentDate.getMonth()+1
          const currentDay = currentDate.getDate()
-        
-         const lastBirthday = new Date(`${currentYear}/${birthdayMonth}/${birthdayDay}`)
 
-         const conversionFactorForYear = (1000 * 60 * 60 * 24 * 365)
+
          const conversionFactorForDay = (1000 * 60 * 60 * 24)
 
-         const diffYears = currentYear - birthdayYear
-         const valueForSome = diffYears * conversionFactorForYear
-         const dataref = new Date(dateInput.getTime()+valueForSome)
-         const quantYearsBisext = (lastBirthday.getTime() - dataref.getTime()) / conversionFactorForDay
 
          //year
-          const diff = currentDate.getTime() - dateInput.getTime()
-          const totalDays = (diff/ conversionFactorForDay ) 
-          const mediaDaysForYear = totalDays / diffYears
-          const years = Math.floor((totalDays) / (365))
 
           if(currentYear == birthdayYear){
             setQuantYears(0)
