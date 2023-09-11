@@ -50,7 +50,7 @@ function AgeCalculator() {
                
               const inputInt = parseInt(input)
               const verify = isNaN(inputInt)
-              if(!verify  && inputInt <= 12){
+              if(!verify  && inputInt <= 12 && inputInt > 0){
                 //
                 setInputMonth(input)
                 setStatusInputMonth(false)
@@ -67,7 +67,7 @@ function AgeCalculator() {
                  
                 const inputInt = parseInt(input)
                 const verify = isNaN(inputInt)
-                if(!verify  && inputInt <= new Date().getFullYear()){
+                if(!verify  && inputInt <= new Date().getFullYear() && inputInt > 0 ){
                   //
                   setInputYear(input)
                   setStatusInputYear(false)
@@ -83,6 +83,7 @@ function AgeCalculator() {
     }
 
     const submit = ()=>{
+      
       if(statusInputDay || statusInputMonth || statusInputYear){
         //
           setStatusInputDay(true)
@@ -92,6 +93,7 @@ function AgeCalculator() {
           setQuantDays('--')
           setQuantMonths('--')
           setQuantYears('--')
+
         alert('Insert a date valid in the past 0')
 
 
@@ -100,6 +102,7 @@ function AgeCalculator() {
         //
         if(new Date(`${inputYear}/${inputMonth}/${inputDay}`) > new Date()){
           //
+
           setStatusInputDay(true)
           setStatusInputMonth(true)
           setStatusInputYear(true)
@@ -229,7 +232,7 @@ function AgeCalculator() {
                 const lastMonthComplete = new Date(`${currentYear}/${currentMonth}/${birthdayDay}`).getTime() 
                 const diffDays = Math.floor((currentDate.getTime() - lastMonthComplete ) / conversionFactorForDay)
                 setQuantDays(diffDays)
-                alert(1)
+                
 
               
             } else {
@@ -239,14 +242,14 @@ function AgeCalculator() {
                 const lastMonthComplete = new Date(`${currentYear-1}/12/${birthdayDay}`).getTime() 
                 const diffDays = Math.floor((currentDate.getTime() - lastMonthComplete ) / conversionFactorForDay)
                 setQuantDays(diffDays)
-                alert(2)
+                
 
               } else {
                 //
                 const lastMonthComplete = new Date(`${currentYear}/${currentMonth-1}/${birthdayDay}`).getTime() 
                 const diffDays = Math.floor((currentDate.getTime() - lastMonthComplete ) / conversionFactorForDay)
                 setQuantDays(diffDays)
-                alert(3)
+                
               }
             }
           
